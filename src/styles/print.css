@@ -1,0 +1,25 @@
+.print-heading { display: none; }
+@media print {
+  @page { size: A4 landscape; margin: 12mm; }
+  :root, .dark, .light { color-scheme: light; --color-base: 255 255 255; }
+  html, body, #root, main { width: 100% !important; min-width: 0 !important; margin: 0 !important; padding: 0 !important; background: white !important; color: #111 !important; }
+  aside, header, [data-no-print], [role="dialog"], [data-radix-popper-content-wrapper] { display: none !important; }
+  .print-heading { display: block; margin-bottom: 6mm; padding-bottom: 3mm; border-bottom: 1px solid #555; font-size: 11pt; color: #111; }
+  main > div { display: block !important; }
+  .card-surface, .hero-wash { box-shadow: none !important; background: white !important; border: 1px solid #bbb !important; color: #111 !important; break-inside: avoid; margin-bottom: 4mm; animation: none !important; }
+  .card-surface *, .hero-wash *, table { color: #111 !important; }
+  .table-scroll, .overflow-auto, .overflow-y-auto { overflow: visible !important; max-height: none !important; }
+  table { width: 100% !important; font-size: 8pt; border-collapse: collapse; }
+  thead { display: table-header-group; position: static !important; background: #eee !important; }
+  tr, .recharts-wrapper, .recharts-responsive-container { break-inside: avoid; }
+  th, td { white-space: normal !important; padding: 2mm !important; }
+  button { box-shadow: none !important; }
+  .recharts-wrapper { max-width: 100%; }
+  .sticky { position: static !important; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+@media print {
+  #root > .flex, .bg-base, .bg-surface { background: white !important; }
+  .recharts-text { fill: #111 !important; }
+  .table-scroll table { table-layout: fixed; }
+}

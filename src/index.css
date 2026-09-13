@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==== OSMAN dashboard tokens (HSL triplets, alpha-friendly) ==== */
+@layer base {
+  :root, .dark {
+    --bg-base: 30 13% 9%;        /* #1A1714 */
+    --bg-surface: 37 13% 12%;    /* #23201B */
+    --bg-elevated: 36 12% 16%;   /* #2E2A24 */
+    --border: 35 12% 20%;        /* #3A352E */
+    --border-strong: 35 12% 27%; /* #4E4840 — ichki blok, jadval shapkasi, ajratgich */
+
+    --text-primary: 40 23% 97%;  /* #FAF9F7 */
+    --text-secondary: 37 13% 76%;/* #C9C3B9 */
+    --text-muted: 35 8% 57%;     /* #9A9389 — AA on elevated */
+
+    --gold: 37 66% 65%;          /* #E0B36A */
+    --gold-bright: 39 81% 74%;   /* #F2CC85 */
+
+    --positive: 142 69% 58%;     /* #4ADE80 */
+    --negative: 351 95% 71%;     /* #FB7185 */
+    --warning: 43 96% 56%;       /* #FBBF24 */
+    --info: 213 94% 68%;         /* #60A5FA */
+    --orange: 27 96% 61%;        /* #FB923C — aging 61–90 */
+
+    /* tugma matni: oltin fonda doim to'q (9.2:1 dark, 5.1:1 light); qizil fonda dark→to'q (6.6:1), light→oq (6.2:1) */
+    --gold-fg: 30 13% 9%;
+    --negative-fg: 30 13% 9%;
+
+    /* soyalar: karta — soyasiz (chegara va fon bosqichi ko'taradi), suzuvchi (menyu/dialog) — ko'p qatlamli, glow — oltin aksent nuri */
+    --shadow-card: 0 0 0 0 transparent;
+    --shadow-float: 0 2px 6px -2px rgb(0 0 0 / 0.45), 0 16px 40px -12px rgb(0 0 0 / 0.6);
+    --shadow-glow: 0 0 100px -28px hsl(var(--gold) / 0.5);
+
+    --radius: 0.75rem;
+    /* grafik balandligi: ixcham / oddiy / sahifaning asosiysi */
+    --chart-h-sm: 240px;
+    --chart-h-md: 300px;
+    --chart-h-lg: 380px;
+    color-scheme: dark;
+  }
+
+  .light {
+    --bg-base: 40 20% 98%;       /* #FBFAF8 — sahifa foni */
+    --bg-surface: 0 0% 100%;     /* #FFFFFF — kartalar */
+    --bg-elevated: 40 18% 95%;   /* #F5F3F0 — input, hover, chip */
+    --border: 40 16% 89%;        /* #E7E4DE — ingichka chegara */
+    --border-strong: 40 14% 82%; /* #D6D0C4 */
+
+    --text-primary: 30 13% 9%;   /* #1A1714 */
+    --text-secondary: 37 10% 26%;/* #4A453D */
+    --text-muted: 34 7% 40%;     /* #6D675F — AA: fon 5.3, elevated 4.9 */
+
+    --gold: 37 59% 44%;          /* #B07F2E — large numbers */
+    --gold-bright: 39 70% 32%;   /* #8A6218 — AA text on white */
+
+    --positive: 142 72% 26%;     /* #137236 — AA on chip/elevated */
+    --negative: 347 77% 42%;     /* #BE193C — AA on chip/elevated */
+    --warning: 26 90% 33%;       /* #A04A08 — AA on chip/elevated */
+    --info: 224 76% 48%;         /* #1D4ED8 */
+    --orange: 17 88% 40%;        /* #C03F0C — AA on chip */
+    --negative-fg: 0 0% 100%;
+
+    --shadow-card: 0 0 0 0 transparent;
+    --shadow-float: 0 0.36px 1.8px -1.4px rgb(0 0 0 / 0.08), 0 1.37px 6.87px -2.8px rgb(0 0 0 / 0.07), 0 6px 30px -4.25px rgb(0 0 0 / 0.08);
+    --shadow-glow: 0 0 100px -28px hsl(var(--gold) / 0.35);
+    color-scheme: light;
+  }
+
+  * { @apply border-border; }
+  html, body, #root { height: 100%; }
+  body {
+    @apply bg-base text-txt-primary font-sans antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+  h1, h2, h3, h4 { @apply font-semibold tracking-heading; }
+  /* raqamlar: bir xil kenglik (ustunlar "sakramaydi") + chiziqli nol (0 va O farqlanadi) */
+  .num { font-variant-numeric: tabular-nums; font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11', 'zero'; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { @apply bg-border rounded-full; border: 2px solid transparent; background-clip: padding-box; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-txt-muted/60; }
+}
+
+@layer components {
+  .card-surface { @apply bg-surface border border-border rounded-xl; }
+  /* sahifa sarlavhasi bloki: oltin rangli yumshoq fon — KPI raqamlari bilan raqobatlashmasligi uchun past intensivlik */
+  .hero-wash { @apply bg-surface border border-border rounded-2xl; background-image: linear-gradient(115deg, hsl(var(--gold) / 0.08) 0%, hsl(var(--gold) / 0.01) 55%); }
+  .kpi-value { @apply font-semibold text-2xl num text-gold-bright leading-none tracking-heading; }
+  .section-title { @apply font-semibold text-[15px] leading-snug text-txt-primary tracking-heading; }
+  .chip { @apply inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium num; }
+  .chip-pos { @apply bg-positive/15 text-positive; }
+  .chip-neg { @apply bg-negative/15 text-negative; }
+  .chip-warn { @apply bg-warning/15 text-warning; }
+  .chip-muted { @apply bg-elevated text-txt-secondary; }
+  .status-dot { @apply inline-block h-1.5 w-1.5 rounded-full shrink-0; }
+  .table-head { @apply text-xs font-medium text-txt-muted; }
+  /* segment tanlagich (tablar, valyuta): pill konteyner + pill tugmalar */
+  .segmented { @apply inline-flex h-8 items-center gap-0.5 rounded-full bg-elevated p-0.5 text-xs; }
+  .segmented-item { @apply h-7 rounded-full px-3 font-medium whitespace-nowrap text-txt-muted transition-colors hover:text-txt-primary; }
+  .segmented-item-active { @apply bg-surface text-txt-primary ring-1 ring-inset ring-border-strong; }
+  .recharts-default-tooltip { @apply !bg-elevated !border-border-strong !rounded-xl !shadow-float; }
+  .recharts-cartesian-axis-tick-value { @apply fill-txt-muted; }
+  .recharts-legend-item-text { @apply !text-txt-secondary; }
+  .recharts-tooltip-cursor { @apply fill-txt-muted/10; }
+  .grid-cell { @apply border-b border-r border-border px-2 py-1 text-sm num outline-none; }
+  .grid-cell:focus { @apply ring-2 ring-inset ring-gold; }
+}
